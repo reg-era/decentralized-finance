@@ -19,5 +19,9 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.4.0"
+  },
+
+  "scripts": {
+    "deploy":"npx hardhat compile && npx hardhat ignition deploy ignition/modules/LendingProtocol.ts --network localhost"
   }
 }

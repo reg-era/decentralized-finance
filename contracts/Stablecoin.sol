@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./Oracle.sol";
 
 contract StableCoin is ERC20 {
-    oracle public IOracle;
+    Oracle public oracle;
 
     mapping(address => uint256) public ethDeposits;
     mapping(address => uint256) public debt;
@@ -14,7 +14,7 @@ contract StableCoin is ERC20 {
 
     // ORACLE
     function registerOracle(address oracleAddress) public {
-        IOracle = oracle(oracleAddress);
+        oracle = Oracle(oracleAddress);
     }
 
     // COLLATERAL
@@ -75,7 +75,7 @@ contract StableCoin is ERC20 {
 
     // INTERNAL
     function _isHealthy(address user) internal view returns (bool) {
-        uint256 ethPrice = IOracle.getEthPrice(); // USD 18 decimals
+        uint256 ethPrice = oracle.getEthPrice(); // USD 18 decimals
 
         uint256 collateralValue =
             (ethDeposits[user] * ethPrice) / 1e18;
