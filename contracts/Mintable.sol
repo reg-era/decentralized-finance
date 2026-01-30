@@ -2,19 +2,18 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MintableERC20 is ERC20, Ownable {
+contract MintableERC20 is ERC20 {
     constructor(
         string memory name_,
         string memory symbol_
-    ) ERC20(name_, symbol_) Ownable(msg.sender) {}
+    ) ERC20(name_, symbol_) {}
 
-    function mint(address to, uint256 amount) external onlyOwner {
+    function mint(address to, uint256 amount) external {
         _mint(to, amount);
     }
 
-    function burn(address from, uint256 amount) external onlyOwner {
+    function burn(address from, uint256 amount) external {
         _burn(from, amount);
     }
 }

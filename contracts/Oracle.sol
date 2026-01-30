@@ -9,17 +9,13 @@ contract Oracle {
         owner = msg.sender;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not authorized");
-        _;
-    }
-
     function getEthPrice() external view returns (uint256) {
         return price;
     }
 
-    function setEthPrice(uint256 newPrice) external onlyOwner {
+    function setEthPrice(uint256 newPrice) external {
         require(newPrice > 0, "Invalid price");
+        require(msg.sender == owner, "Not authorized");
         price = newPrice;
     }
 }
